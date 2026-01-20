@@ -1,5 +1,7 @@
-Flask
+flask
 gunicorn
-pymongo>=4.6
-dnspython
+pymongo
 python-dotenv
+pandas
+werkzeug
+bcrypt
