@@ -1,4 +1,4 @@
-from database.mongo_connection import MongoDB
+from database.mongo_connection import db
 from models.postulacion import Postulacion
 from bson import ObjectId
 
@@ -30,4 +30,5 @@ class RepositorioPostulacionesMongo:
             "oferta_id": oferta_id,
             "estudiante_id": estudiante_id
         }) is not None
+
 
