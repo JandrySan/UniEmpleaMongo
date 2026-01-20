@@ -5,7 +5,7 @@ from bson import ObjectId
 
 class RepositorioNotificacionesMongo:
     def __init__(self):
-        self.collection = MongoDB().db["notificaciones"]
+        self.collection = db["notificaciones"]
 
     def crear(self, notif):
         result = self.collection.insert_one({
@@ -34,4 +34,5 @@ class RepositorioNotificacionesMongo:
             {"_id": ObjectId(notif_id)},
             {"$set": {"leida": True}}
         )
+
 
