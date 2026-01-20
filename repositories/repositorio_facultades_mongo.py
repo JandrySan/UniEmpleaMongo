@@ -1,4 +1,4 @@
-from database.mongo_connection import MongoDB
+from database.mongo_connection import db
 from models.facultad import Facultad
 from bson import ObjectId
 
@@ -44,3 +44,4 @@ class RepositorioFacultadesMongo:
         self.collection.delete_one(
             {"_id": ObjectId(facultad_id)}
         )
+
