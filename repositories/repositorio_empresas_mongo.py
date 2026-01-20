@@ -6,7 +6,7 @@ from bson import ObjectId
 class RepositorioEmpresasMongo:
 
     def __init__(self):
-        self.collection = MongoDB().db["empresas"]
+        self.collection =db["empresas"]
 
     def crear(self, empresa):
         result = self.collection.insert_one({
@@ -37,4 +37,5 @@ class RepositorioEmpresasMongo:
 
     def eliminar(self, empresa_id):
         self.collection.delete_one({"_id": ObjectId(empresa_id)})
+
 
