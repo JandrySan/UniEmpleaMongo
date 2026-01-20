@@ -1,6 +1,7 @@
-from database.mongo_connection import MongoDB
+from database.mongo_connection import db
 from models.notificacion import Notificacion
 from bson import ObjectId
+
 
 class RepositorioNotificacionesMongo:
     def __init__(self):
@@ -33,3 +34,4 @@ class RepositorioNotificacionesMongo:
             {"_id": ObjectId(notif_id)},
             {"$set": {"leida": True}}
         )
+
