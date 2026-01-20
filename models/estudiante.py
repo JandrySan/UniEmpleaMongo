@@ -14,7 +14,7 @@ class Estudiante(Usuario):
         self.solicitud_practica = solicitud_practica
         self.empresa_practica_id = empresa_practica_id
         self.practica_oferta_id = practica_oferta_id
-        self.cv_path = cv_path
+        self.cv_path = None 
 
 
     def rol(self):
@@ -26,3 +26,4 @@ class Estudiante(Usuario):
 
     def obtener_dashboard(self):
         return "estudiante.dashboard_estudiante"
+
