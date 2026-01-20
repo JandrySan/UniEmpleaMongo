@@ -1,7 +1,7 @@
 from bson import ObjectId
 from models.recomendacion import Recomendacion
 from repositories.repositorio_usuarios_mongo import RepositorioUsuariosMongo
-from database.mongo_connection import MongoDB
+from database.mongo_connection import db
 
 class RepositorioRecomendacionesMongo:
 
@@ -45,3 +45,4 @@ class RepositorioRecomendacionesMongo:
             )
 
         return recomendaciones
+
