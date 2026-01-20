@@ -6,7 +6,7 @@ from database.mongo_connection import db
 class RepositorioRecomendacionesMongo:
 
     def __init__(self):
-        self.collection = MongoDB().db["recomendaciones"]
+        self.collection = db["recomendaciones"]
 
     def crear(self, recomendacion):
         result = self.collection.insert_one({
@@ -45,4 +45,5 @@ class RepositorioRecomendacionesMongo:
             )
 
         return recomendaciones
+
 
