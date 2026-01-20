@@ -1,4 +1,3 @@
-# database/mongodb.py (por ejemplo)
 import os
 from pymongo import MongoClient
 
@@ -9,12 +8,11 @@ class MongoDB:
         if cls._instancia is None:
             cls._instancia = super().__new__(cls)
 
-            mongo_uri = os.getenv(
-                "MONGO_URI",
-                "mongodb://localhost:27017/"  # fallback local
-            )
+            uri = os.getenv("MONGO_URI")
+            if not uri:
+                raise Exception("❌ MONGO_URI no está definido")
 
-            client = MongoClient(mongo_uri)
-            cls._instancia.db = client["uniemplea_db"]
+            client = MongoClient(uri)
+            cls._instancia.db = client.get_default_database()
 
         return cls._instancia
