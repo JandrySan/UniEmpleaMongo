@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from database.mongo_connection import db
 
 class RepositorioBaseMongo(ABC):
 
@@ -12,3 +13,4 @@ class RepositorioBaseMongo(ABC):
     @abstractmethod
     def buscar_por_id(self, entidad_id):
         pass
+
