@@ -4,7 +4,7 @@ from bson import ObjectId
 
 class RepositorioCalificacionesMongo:
     def __init__(self):
-        self.collection = MongoDB().db["calificaciones"]
+        self.collection = db["calificaciones"]
 
     def crear(self, calificacion):
         result = self.collection.insert_one({
@@ -27,4 +27,5 @@ class RepositorioCalificacionesMongo:
                 semestre=doc["semestre"]
             ))
         return calificaciones
+
 
