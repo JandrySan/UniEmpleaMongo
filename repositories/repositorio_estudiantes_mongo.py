@@ -8,7 +8,7 @@ class RepositorioEstudiantesMongo:
 
     def __init__(self):
         
-        self.collection = MongoDB().db["usuarios"]
+        self.collection = db["usuarios"]
 
 
     def obtener_estudiantes(self):
@@ -98,5 +98,6 @@ class RepositorioEstudiantesMongo:
             "activo": True
         })
         
+
 
 
