@@ -1,4 +1,4 @@
-from database.mongo_connection import MongoDB
+from database.mongo_connection import db
 from models.carrera import Carrera
 from bson import ObjectId
 from bson.errors import InvalidId
@@ -99,3 +99,4 @@ class RepositorioCarrerasMongo:
             facultad_id=data.get("facultad_id"),
             director_id=data.get("director_id")
         )
+
