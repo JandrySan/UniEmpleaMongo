@@ -1,4 +1,4 @@
-from database.mongo_connection import MongoDB
+from database.mongo_connection import db
 from bson import ObjectId
 from models.decano import Decano
 from models.docente import Docente
@@ -252,5 +252,6 @@ class RepositorioUsuariosMongo:
         for doc in self.collection.find():
             todos.append(self.buscar_por_id(str(doc["_id"])))
         return todos
+
 
 
