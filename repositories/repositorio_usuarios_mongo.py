@@ -8,6 +8,7 @@ from models.director_carrera import DirectorCarrera
 from models.estudiante import Estudiante
 from models.egresado import Egresado
 from models.administrador import AdministradorGeneral
+from database.mongo_connection import MongoDB
 
 class RepositorioUsuariosMongo:
 
@@ -250,3 +251,4 @@ class RepositorioUsuariosMongo:
         for doc in self.collection.find():
             todos.append(self.buscar_por_id(str(doc["_id"])))
         return todos
+
