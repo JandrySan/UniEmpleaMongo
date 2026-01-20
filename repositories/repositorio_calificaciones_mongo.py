@@ -1,4 +1,4 @@
-from database.mongo_connection import MongoDB
+from database.mongo_connection import db
 from models.calificacion import Calificacion
 from bson import ObjectId
 
@@ -27,3 +27,4 @@ class RepositorioCalificacionesMongo:
                 semestre=doc["semestre"]
             ))
         return calificaciones
+
