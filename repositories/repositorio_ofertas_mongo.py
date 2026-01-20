@@ -6,7 +6,7 @@ from models.oferta import Oferta
 class RepositorioOfertasMongo:
 
     def __init__(self):
-        self.collection = MongoDB().db["ofertas"]
+        self.collection = db["ofertas"]
 
     def crear(self, oferta):
         self.collection.insert_one({
@@ -103,4 +103,5 @@ class RepositorioOfertasMongo:
             jornada=o.get("jornada"),
             salario=o.get("salario")
         )
+
 
