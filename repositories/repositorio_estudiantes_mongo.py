@@ -1,5 +1,5 @@
 from bson import ObjectId
-from database.mongo_connection import MongoDB
+from database.mongo_connection import db
 from models.usuario import Usuario
 from models.egresado import Egresado
 from models.estudiante import Estudiante
@@ -98,4 +98,5 @@ class RepositorioEstudiantesMongo:
             "activo": True
         })
         
+
 
