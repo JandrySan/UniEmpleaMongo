@@ -4,7 +4,7 @@ from bson import ObjectId
 
 class RepositorioPostulacionesMongo:
     def __init__(self):
-        self.collection = MongoDB().db["postulaciones"]
+        self.collection = db["postulaciones"]
 
     def crear(self, post):
         result = self.collection.insert_one({
@@ -30,5 +30,6 @@ class RepositorioPostulacionesMongo:
             "oferta_id": oferta_id,
             "estudiante_id": estudiante_id
         }) is not None
+
 
 
