@@ -1,4 +1,5 @@
 from utils.seguridad import verificar_password
+from database.mongo_connection import db
 
 class RepositorioAuthMongo:
 
@@ -15,3 +16,4 @@ class RepositorioAuthMongo:
             raise ValueError("Correo o contraseña incorrectos")
 
         return usuario 
+
