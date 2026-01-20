@@ -14,7 +14,7 @@ from database.mongo_connection import db
 class RepositorioUsuariosMongo:
 
     def __init__(self):
-        self.collection = MongoDB().db["usuarios"]
+        self.collection =db["usuarios"]
 
     def guardar(self, usuario, password_hash):
         self.collection.insert_one({
@@ -252,6 +252,7 @@ class RepositorioUsuariosMongo:
         for doc in self.collection.find():
             todos.append(self.buscar_por_id(str(doc["_id"])))
         return todos
+
 
 
 
