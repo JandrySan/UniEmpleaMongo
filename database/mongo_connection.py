@@ -8,11 +8,12 @@ class MongoDB:
         if cls._instancia is None:
             cls._instancia = super().__new__(cls)
 
-            uri = os.getenv("MONGO_URI")
-            if not uri:
-                raise Exception("❌ MONGO_URI no está definido")
+            MONGO_URI = os.getenv("MONGO_URI")
+            client = MongoClient(MONGO_URI)
 
-            client = MongoClient(uri)
-            cls._instancia.db = client.get_default_database()
+            
+            cls._instancia.db = client["uniemplea_db"]
 
         return cls._instancia
+
+
