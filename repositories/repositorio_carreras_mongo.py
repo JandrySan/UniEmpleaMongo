@@ -6,7 +6,7 @@ from bson.errors import InvalidId
 class RepositorioCarrerasMongo:
 
     def __init__(self):
-        self.collection = MongoDB().db["carreras"]
+        self.collection = db["carreras"]
 
 
     def obtener_por_facultad(self, facultad_id):
@@ -99,4 +99,5 @@ class RepositorioCarrerasMongo:
             facultad_id=data.get("facultad_id"),
             director_id=data.get("director_id")
         )
+
 
