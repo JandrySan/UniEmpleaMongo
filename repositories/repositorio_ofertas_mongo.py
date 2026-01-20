@@ -1,5 +1,5 @@
 from bson import ObjectId
-from database.mongo_connection import MongoDB
+from database.mongo_connection import db
 from models.oferta import Oferta
 
 
@@ -103,3 +103,4 @@ class RepositorioOfertasMongo:
             jornada=o.get("jornada"),
             salario=o.get("salario")
         )
+
