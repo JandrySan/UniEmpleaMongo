@@ -1,12 +1,12 @@
 from bson import ObjectId
-from database.mongo_connection import db
+from database.mongo_connection import MongoDB
 from models.oferta import Oferta
 
 
 class RepositorioOfertasMongo:
 
     def __init__(self):
-        self.collection = db["ofertas"]
+        self.collection = MongoDB().db["ofertas"]
 
     def crear(self, oferta):
         self.collection.insert_one({
@@ -103,5 +103,3 @@ class RepositorioOfertasMongo:
             jornada=o.get("jornada"),
             salario=o.get("salario")
         )
-
-

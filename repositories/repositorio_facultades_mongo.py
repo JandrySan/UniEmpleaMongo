@@ -1,11 +1,11 @@
-from database.mongo_connection import db
+from database.mongo_connection import MongoDB
 from models.facultad import Facultad
 from bson import ObjectId
 
 class RepositorioFacultadesMongo:
 
     def __init__(self):
-        self.collection = db["facultades"]
+        self.collection = MongoDB().db["facultades"]
 
     def crear(self, facultad):
         result = self.collection.insert_one({
@@ -44,5 +44,3 @@ class RepositorioFacultadesMongo:
         self.collection.delete_one(
             {"_id": ObjectId(facultad_id)}
         )
-
-

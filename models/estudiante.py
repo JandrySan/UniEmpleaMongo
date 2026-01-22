@@ -26,4 +26,3 @@ class Estudiante(Usuario):
 
     def obtener_dashboard(self):
         return "estudiante.dashboard_estudiante"
-

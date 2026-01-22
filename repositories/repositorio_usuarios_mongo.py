@@ -1,4 +1,4 @@
-
+from database.mongo_connection import MongoDB
 from bson import ObjectId
 from models.decano import Decano
 from models.docente import Docente
@@ -9,12 +9,10 @@ from models.estudiante import Estudiante
 from models.egresado import Egresado
 from models.administrador import AdministradorGeneral
 
-from database.mongo_connection import db
-
 class RepositorioUsuariosMongo:
 
     def __init__(self):
-        self.collection =db["usuarios"]
+        self.collection = MongoDB().db["usuarios"]
 
     def guardar(self, usuario, password_hash):
         self.collection.insert_one({
@@ -113,7 +111,8 @@ class RepositorioUsuariosMongo:
                 id=str(data["_id"]),
                 nombre=data["nombre"],
                 correo=data["correo"],
-                facultad_id=data.get("facultad_id")
+                facultad_id=data.get("facultad_id"),
+                es_tutor=data.get("es_tutor", False)
              )
 
         if rol == "decano":
@@ -148,10 +147,31 @@ class RepositorioUsuariosMongo:
                     id=str(u["_id"]),
                     nombre=u["nombre"],
                     correo=u["correo"],
-                    facultad_id=u["facultad_id"]
+                    facultad_id=u["facultad_id"],
+                    es_tutor=u.get("es_tutor", False)
                 )
             )
         return docentes
+
+
+    def obtener_tutores_por_facultad(self, facultad_id):
+        tutores = []
+        for u in self.collection.find({
+            "rol": "docente",
+            "facultad_id": facultad_id,
+            "es_tutor": True,
+            "activo": True
+        }):
+            tutores.append(
+                Docente(
+                    id=str(u["_id"]),
+                    nombre=u["nombre"],
+                    correo=u["correo"],
+                    facultad_id=u["facultad_id"],
+                    es_tutor=True
+                )
+            )
+        return tutores
 
 
 
@@ -210,41 +230,51 @@ class RepositorioUsuariosMongo:
             "password": password,
             "rol": "docente",
             "facultad_id": facultad_id,
+            "es_tutor": False, 
             "activo": True
         }
         result = self.collection.insert_one(usuario)
         usuario["_id"] = result.inserted_id
+
         return Docente(
             id=str(usuario["_id"]),
             nombre=nombre,
             correo=correo,
-            facultad_id=facultad_id
+            facultad_id=facultad_id,
+            es_tutor=False
         )
 
-    def obtener_docentes_por_facultad(self, facultad_id):
-        docentes = []
-        for u in self.collection.find({
-            "rol": "docente",
-            "facultad_id": facultad_id
-        }):
-            docentes.append(
-                Docente(
-                    id=str(u["_id"]),
-                    nombre=u["nombre"],
-                    correo=u["correo"],
-                    facultad_id=u["facultad_id"]
-                )
-            )
-        return docentes
+
+
     
-    def convertir_a_director(self, usuario_id, carrera_id):
+    def convertir_a_director(self, usuario_id, carrera_id, facultad_id):
         self.collection.update_one(
             {"_id": ObjectId(usuario_id)},
             {"$set": {
                 "rol": "director_carrera",
-                "carrera_id": carrera_id
+                "carrera_id": carrera_id,
+                "facultad_id": facultad_id
             }}
         )
+
+
+    def obtener_directores_por_facultad(self, facultad_id):
+        directores = []
+        for u in self.collection.find({
+            "rol": "director_carrera",
+            "facultad_id": facultad_id,
+            "activo": True
+        }):
+            directores.append(
+                DirectorCarrera(
+                    id=str(u["_id"]),
+                    nombre=u["nombre"],
+                    correo=u["correo"],
+                    facultad_id=u.get("facultad_id"),
+                    carrera_id=u.get("carrera_id")
+                )
+            )
+        return directores
 
 
     def obtener_todos(self):
@@ -254,6 +284,14 @@ class RepositorioUsuariosMongo:
         return todos
 
 
+    def asignar_como_tutor(self, docente_id):
+        self.collection.update_one(
+            {"_id": ObjectId(docente_id)},
+            {"$set": {"es_tutor": True}}
+        )
 
-
-
+    def quitar_como_tutor(self, docente_id):
+        self.collection.update_one(
+            {"_id": ObjectId(docente_id)},
+            {"$set": {"es_tutor": False}}
+        )

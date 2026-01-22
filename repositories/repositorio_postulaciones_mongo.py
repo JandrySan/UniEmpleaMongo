@@ -1,10 +1,10 @@
-from database.mongo_connection import db
+from database.mongo_connection import MongoDB
 from models.postulacion import Postulacion
 from bson import ObjectId
 
 class RepositorioPostulacionesMongo:
     def __init__(self):
-        self.collection = db["postulaciones"]
+        self.collection = MongoDB().db["postulaciones"]
 
     def crear(self, post):
         result = self.collection.insert_one({
@@ -30,6 +30,4 @@ class RepositorioPostulacionesMongo:
             "oferta_id": oferta_id,
             "estudiante_id": estudiante_id
         }) is not None
-
-
 

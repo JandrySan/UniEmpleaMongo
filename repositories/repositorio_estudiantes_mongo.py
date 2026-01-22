@@ -1,5 +1,5 @@
 from bson import ObjectId
-from database.mongo_connection import db
+from database.mongo_connection import MongoDB
 from models.usuario import Usuario
 from models.egresado import Egresado
 from models.estudiante import Estudiante
@@ -8,7 +8,7 @@ class RepositorioEstudiantesMongo:
 
     def __init__(self):
         
-        self.collection = db["usuarios"]
+        self.collection = MongoDB().db["usuarios"]
 
 
     def obtener_estudiantes(self):
@@ -98,6 +98,4 @@ class RepositorioEstudiantesMongo:
             "activo": True
         })
         
-
-
 

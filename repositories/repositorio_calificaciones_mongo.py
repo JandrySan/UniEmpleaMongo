@@ -1,10 +1,10 @@
-from database.mongo_connection import db
+from database.mongo_connection import MongoDB
 from models.calificacion import Calificacion
 from bson import ObjectId
 
 class RepositorioCalificacionesMongo:
     def __init__(self):
-        self.collection = db["calificaciones"]
+        self.collection = MongoDB().db["calificaciones"]
 
     def crear(self, calificacion):
         result = self.collection.insert_one({
@@ -27,5 +27,3 @@ class RepositorioCalificacionesMongo:
                 semestre=doc["semestre"]
             ))
         return calificaciones
-
-

@@ -1,11 +1,10 @@
-from database.mongo_connection import db
+from database.mongo_connection import MongoDB
 from models.notificacion import Notificacion
 from bson import ObjectId
 
-
 class RepositorioNotificacionesMongo:
     def __init__(self):
-        self.collection = db["notificaciones"]
+        self.collection = MongoDB().db["notificaciones"]
 
     def crear(self, notif):
         result = self.collection.insert_one({
@@ -34,5 +33,3 @@ class RepositorioNotificacionesMongo:
             {"_id": ObjectId(notif_id)},
             {"$set": {"leida": True}}
         )
-
-
