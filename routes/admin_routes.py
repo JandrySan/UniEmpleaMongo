@@ -25,8 +25,7 @@ from models.decano import Decano
 from models.egresado import Egresado   
 from models.administrador import AdministradorGeneral
 from werkzeug.security import generate_password_hash, check_password_hash
-from database.mongo_connection import db
-
+from database.mongo_connection import MongoDB
 
 
 
@@ -434,4 +433,3 @@ def aprobar_oferta(oferta_id):
         {"$set": {"estado": "activa"}}
     )
     return redirect(url_for("admin.gestionar_ofertas"))
-
