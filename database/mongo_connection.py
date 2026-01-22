@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+import os
 
 class MongoDB:
     _instancia = None
@@ -6,7 +7,12 @@ class MongoDB:
     def __new__(cls):
         if cls._instancia is None:
             cls._instancia = super().__new__(cls)
-            client = MongoClient("mongodb://localhost:27017/")
-            cls._instancia.db = client["uniemplea_db"]
-        return cls._instancia
 
+            mongo_uri = os.getenv("MONGO_URI")
+            if not mongo_uri:
+                raise Exception("La variable de entorno MONGO_URI no está configurada")
+
+            client = MongoClient(mongo_uri)
+            cls._instancia.db = client.get_default_database()
+
+        return cls._instancia
