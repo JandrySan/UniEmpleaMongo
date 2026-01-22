@@ -1,10 +1,12 @@
-# database/mongo_connection.py
-import os
 from pymongo import MongoClient
 
-MONGO_URI = os.getenv("MONGO_URI")
+class MongoDB:
+    _instancia = None
 
-client = MongoClient(MONGO_URI)
-db = client["uniemplea"]  # nombre de la BD (aunque no exista, Mongo la crea)
-
+    def __new__(cls):
+        if cls._instancia is None:
+            cls._instancia = super().__new__(cls)
+            client = MongoClient("mongodb://localhost:27017/")
+            cls._instancia.db = client["uniemplea_db"]
+        return cls._instancia
 
